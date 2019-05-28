@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+import dbCalls from './modules/dbCalls';
+import ArticleForm from './articles/ArticleForm';
+
+const remoteURL = "http://localhost:5002"
+const articlesURL = `${remoteURL}/articles`
+
 
 class ApplicationViews extends Component {
 
@@ -39,7 +46,13 @@ componentDidMount() {
         .then(() => this.setState(newState))
 }
 
-
+addArticle = newArticleObj => 
+    dbCalls.post(newArticleObj, articlesURL)
+    .then( () => dbCalls.all(articlesURL))
+    .then(articles =>
+        this.setState({
+            articles: articles
+        }))
 
 
 
@@ -49,6 +62,12 @@ componentDidMount() {
     render() {
         return (
             <>
+            {/* location form route */}
+            <Route path="/articles/new" render={(props) => {
+                    return <ArticleForm {...props}
+                                        addArticle={this.addArticle}
+                                        articles={this.state.articles} />
+                }} />
             </>
         );
     }
