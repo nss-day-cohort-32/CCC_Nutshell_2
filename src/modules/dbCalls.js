@@ -1,10 +1,10 @@
-// const remoteURL = "http://localhost:5002"
-const eventsURL = "http://localhost:5002/events"
-const articlesURL = "http://localhost:5002/articles"
-const messagesURL = "http://localhost:5002/messages"
-const tasksURL = "http://localhost:5002/tasks"
-const usersURL = "http://localhost:5002/users"
-const friendsURL = "http://localhost:5002/friends"
+ const remoteURL = "http://localhost:5002"
+const eventsURL = `${remoteURL}/events`
+const articlesURL = `${remoteURL}/articles`
+const messagesURL = `${remoteURL}/messages`
+const tasksURL = `${remoteURL}/tasks`
+const usersURL = `${remoteURL}/users`
+const friendsURL = `${remoteURL}/friends`
 
 export default Object.create(null, {
     get: {

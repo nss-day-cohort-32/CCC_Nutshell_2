@@ -14,6 +14,7 @@ class ApplicationViews extends Component {
 
 componentDidMount() {
     const newState = {}
+
     fetch("http://localhost:5002/articles")
         .then(r => r.json())
         .then(articles => newState.articles = articles)
