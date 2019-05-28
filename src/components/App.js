@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import NavBar from "./navbar/NavBar"
 import { BrowserRouter as Router } from 'react-router-dom'
-// import ApplicationViews from "../ApplicationViews"
+import ApplicationViews from "./ApplicationViews"
 
 import "./App.css"
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -13,7 +13,7 @@ class App extends Component {
       <Router>
         <React.Fragment>
           <NavBar />
-          {/* <ApplicationViews /> */}
+          <ApplicationViews />
         </React.Fragment>
       </Router>
     )
