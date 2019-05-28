@@ -1,6 +1,6 @@
-import { Route, Redirect } from 'react-router-dom'
-import React, { Component } from "react"
-import { withRouter } from 'react-router'
+import React, { Component } from 'react';
+import { Route } from "react-router-dom"
+import ArticleList from './articles/ArticleList';
 
 class ApplicationViews extends Component {
 
@@ -41,7 +41,7 @@ class ApplicationViews extends Component {
             .then(() => this.setState(newState))
     }
 
-
+    /* delete article function goes here.... */
 
 
 
@@ -51,6 +51,10 @@ class ApplicationViews extends Component {
     render() {
         return (
             <>
+                <Route exact path="/articles" render={(props) => {
+                    return <ArticleList
+                        articles={this.state.articles} {...props} />
+                }} />
             </>
         );
     }
