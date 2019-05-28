@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import dbCalls from './modules/dbCalls';
 import ArticleForm from './articles/ArticleForm';
 import ArticleList from './articles/ArticleList';
+import dbCalls from '../modules/dbCalls'
 
 const remoteURL = "http://localhost:5002"
 const articlesURL = `${remoteURL}/articles`
