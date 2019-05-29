@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import ArticleForm from './articles/ArticleForm';
 import ArticleList from './articles/ArticleList';
 import EventList from './events/EventList';
+import TaskList from './tasks/TaskList'
 import dbCalls from '../modules/dbCalls'
 
 const remoteURL = "http://localhost:5002"
@@ -80,6 +81,11 @@ class ApplicationViews extends Component {
                 <Route path="/events" render={(props) => {
                     return <EventList
                         events={this.state.events} {...props} />
+                }} />
+
+                <Route path="/tasks" render={(props) => {
+                    return <TaskList
+                        events={this.state.tasks} {...props} />
                 }} />
             </>
         )
