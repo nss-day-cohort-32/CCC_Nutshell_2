@@ -1,5 +1,5 @@
- const remoteURL = "http://localhost:5002"
-const eventsURL = `${remoteURL}/events`
+const remoteURL = "http://localhost:5002"
+const eventsURL = `${remoteURL}/events?_sort=date&_order=asc`
 const messagesURL = `${remoteURL}/messages`
 const tasksURL = `${remoteURL}/tasks`
 const usersURL = `${remoteURL}/users`
@@ -17,7 +17,8 @@ export default Object.create(null, {
         }
     },
     all: {
-        value: function (URL) { console.log("url", URL)
+        value: function (URL) {
+            console.log("url", URL)
             return fetch(`${URL}`).then(e => e.json())
         }
     },
