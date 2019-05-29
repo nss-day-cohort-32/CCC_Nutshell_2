@@ -11,8 +11,7 @@ class ArticleList extends Component {
                         className="btn btn-success"
                         onClick={() => {
                             this.props.history.push("/articles/new")
-                        }
-                        }>
+                        }}>
                         Add New Article
                     </button>
                 </div>
