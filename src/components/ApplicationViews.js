@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import ArticleForm from './articles/ArticleForm';
 import ArticleList from './articles/ArticleList';
+import EventList from './events/EventList';
 import dbCalls from '../modules/dbCalls'
 
 const remoteURL = "http://localhost:5002"
@@ -46,13 +47,13 @@ class ApplicationViews extends Component {
             .then(() => this.setState(newState))
     }
 
-addArticle = newArticleObj => 
-    dbCalls.post(newArticleObj, articlesURL)
-    .then( () => dbCalls.all(articlesURL))
-    .then(articles =>
-        this.setState({
-            articles: articles
-        }))
+    addArticle = newArticleObj =>
+        dbCalls.post(newArticleObj, articlesURL)
+            .then(() => dbCalls.all(articlesURL))
+            .then(articles =>
+                this.setState({
+                    articles: articles
+                }))
 
 
     /* delete article function goes here.... */
@@ -65,17 +66,24 @@ addArticle = newArticleObj =>
     render() {
         return (
             <>
-            {/* location form route */}
-            <Route path="/articles/new" render={(props) => {
+                {/* location form route */}
+                <Route path="/articles/new" render={(props) => {
                     return <ArticleForm {...props}
-                                        addArticle={this.addArticle}
-                                        articles={this.state.articles} />
-                                    }} />
+                        addArticle={this.addArticle}
+                        articles={this.state.articles} />
+                }} />
                 <Route exact path="/articles" render={(props) => {
                     return <ArticleList
                         articles={this.state.articles} {...props} />
                 }} />
+
+                <Route path="/events" render={(props) => {
+                    return <EventList
+                        events={this.state.events} {...props} />
+                }} />
             </>
-        )}}
+        )
+    }
+}
 
 export default ApplicationViews;
