@@ -56,7 +56,16 @@ addArticle = newArticleObj =>
 
 
     /* delete article function goes here.... */
-
+    deleteArticle = (id) => {
+        const newState = {};
+        dbCalls.delete(id, articlesURL)
+            .then(dbCalls.all(articlesURL))
+            .then(articles => {
+                console.log(articles)
+                newState.articles = articles
+            })
+            .then(() => this.setState(newState))
+    }
 
 
 
@@ -69,11 +78,12 @@ addArticle = newArticleObj =>
             <Route path="/articles/new" render={(props) => {
                     return <ArticleForm {...props}
                                         addArticle={this.addArticle}
-                                        articles={this.state.articles} />
-                                    }} />
-                <Route exact path="/articles" render={(props) => {
-                    return <ArticleList
-                        articles={this.state.articles} {...props} />
+                        articles={this.state.articles} />
+                    }} />
+                 <Route exact path="/articles" render={(props) => {
+                    return <ArticleList {...props}
+                                        articles={this.state.articles}
+                                        deleteArticle={this.deleteArticle}/>
                 }} />
             </>
         )}}
