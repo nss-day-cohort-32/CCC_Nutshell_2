@@ -17,7 +17,7 @@ export default Object.create(null, {
         }
     },
     all: {
-        value: function (URL) {
+        value: function (URL) { console.log("url", URL)
             return fetch(`${URL}`).then(e => e.json())
         }
     },

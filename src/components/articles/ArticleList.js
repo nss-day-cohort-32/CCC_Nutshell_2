@@ -8,6 +8,7 @@ import "./Article.css"
 
 class ArticleList extends Component {
     render() {
+        console.log("props", this.props)
         return (
             <React.Fragment>
                 <Card className="articleButton">
