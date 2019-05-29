@@ -6,7 +6,7 @@ export default class TaskItem extends Component {
         return (
             <div key={this.props.task.id} className="card">
                 <div className="card-body">
-                    <h3>{this.props.task.name}</h3>
+                    <h3>{this.props.task.task}</h3>
                     <Link className="nav-link" to={`/articles/${this.props.task.id}`}>Details</Link>
                     <button
                         type="button"

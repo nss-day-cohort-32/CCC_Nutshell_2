@@ -79,13 +79,13 @@ class ApplicationViews extends Component {
                 {/* location form route */}
                 <Route path="/articles/new" render={(props) => {
                     return <ArticleForm {...props}
-                                        addArticle={this.addArticle}
+                        addArticle={this.addArticle}
                         articles={this.state.articles} />
-                    }} />
-                 <Route exact path="/articles" render={(props) => {
+                }} />
+                <Route exact path="/articles" render={(props) => {
                     return <ArticleList {...props}
-                                        articles={this.state.articles}
-                                        deleteArticle={this.deleteArticle}/>
+                        articles={this.state.articles}
+                        deleteArticle={this.deleteArticle} />
                 }} />
 
                 <Route path="/events" render={(props) => {
@@ -95,7 +95,7 @@ class ApplicationViews extends Component {
 
                 <Route path="/tasks" render={(props) => {
                     return <TaskList
-                        events={this.state.tasks} {...props} />
+                        tasks={this.state.tasks} {...props} />
                 }} />
             </>
         )
