@@ -6,7 +6,7 @@ import "./Article.css"
 
 export default class ArticleForm extends Component {
 
-    // Set initial state
+  // Set initial state
   state = {
     articleName: "",
     articleSummary: "",
