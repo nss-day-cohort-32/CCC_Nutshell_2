@@ -6,7 +6,7 @@ class EventItem extends Component {
         return (
             <div key={this.props.event.id} className="card">
                 <div className="card-body">
-                    <h3>{this.props.event.name}</h3>
+                    <h3>{this.props.event.title}</h3>
                     <p>{this.props.event.date}</p>
                     <p>{this.props.event.location}</p>
                     <button
