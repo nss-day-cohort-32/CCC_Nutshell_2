@@ -19,11 +19,12 @@ export default class TaskItem extends Component {
             <div key={this.props.task.id} className="card">
                 <CardActions>
                     <Card className="card-body">
-                        <CardContent><h3>{this.props.task.task}</h3></CardContent>
+                        <CardContent><h3>{this.props.task.task} {this.props.task.date}</h3>
+                                        <p>{this.props.task.date}</p></CardContent>
                         {/* <Checkbox
                             checked={this.state.checked}
                             onChange={this.handleCheckboxChange}></Checkbox> */}
-                        <Link className="nav-link" to={`/articles/${this.props.task.id}`}>Details</Link>
+                        {/* <Link className="nav-link" to={`/articles/${this.props.task.id}`}>Details</Link> */}
                         <Button size="small" color="primary"
                             type="button"
                             className="btn btn-success btn--edit"
