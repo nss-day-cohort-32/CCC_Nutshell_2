@@ -8,6 +8,7 @@ import dbCalls from '../modules/dbCalls'
 
 const remoteURL = "http://localhost:5002"
 const articlesURL = `${remoteURL}/articles`
+const tasksURL = `${remoteURL}/tasks`
 
 
 class ApplicationViews extends Component {
@@ -65,6 +66,16 @@ class ApplicationViews extends Component {
             .then(() => this.setState(newState))
     }
 
+    /* delete task function goes here.... */
+
+    deleteTask = (id) => {
+        const newState = {};
+        dbCalls.delete(id, tasksURL)
+            .then(() => dbCalls.all(tasksURL))
+            .then(tasks => newState.tasks = tasks)
+            .then(() => this.setState(newState))
+    }
+
 
 
 
@@ -90,8 +101,9 @@ class ApplicationViews extends Component {
                 }} />
 
                 <Route path="/tasks" render={(props) => {
-                    return <TaskList
-                        tasks={this.state.tasks} {...props} />
+                    return <TaskList {...props}
+                        tasks={this.state.tasks}
+                        deleteTask={this.deleteTask} />
                 }} />
             </>
         )
