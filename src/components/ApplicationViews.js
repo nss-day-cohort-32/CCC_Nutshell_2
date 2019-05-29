@@ -9,6 +9,7 @@ import EventForm from "./events/EventForm"
 
 const remoteURL = "http://localhost:5002"
 const articlesURL = `${remoteURL}/articles`
+const tasksURL = `${remoteURL}/tasks`
 const eventsURL = `${remoteURL}/events`
 
 
@@ -66,14 +67,25 @@ class ApplicationViews extends Component {
             .then(() => this.setState(newState))
     }
 
+    /* delete task function goes here.... */
+
+    deleteTask = (id) => {
+        const newState = {};
+        dbCalls.delete(id, tasksURL)
+            .then(() => dbCalls.all(tasksURL))
+            .then(tasks => newState.tasks = tasks)
+            .then(() => this.setState(newState))
+    }
+
+
     //   add event Form function goes heere.... //
     addEvent = newEventObj =>
-    dbCalls.post(newEventObj, eventsURL)
-        .then(() => dbCalls.all(eventsURL))
-        .then(events =>
-            this.setState({
-                events: events
-            }))
+        dbCalls.post(newEventObj, eventsURL)
+            .then(() => dbCalls.all(eventsURL))
+            .then(events =>
+                this.setState({
+                    events: events
+                }))
 
 
 
@@ -91,7 +103,7 @@ class ApplicationViews extends Component {
                         articles={this.state.articles}
                         deleteArticle={this.deleteArticle} />
                 }} />
-                 <Route path="/events/new" render={(props) => {
+                <Route path="/events/new" render={(props) => {
                     return <EventForm {...props}
                         addEvent={this.addEvent}
                         events={this.state.events} />
@@ -103,8 +115,9 @@ class ApplicationViews extends Component {
                 }} />
 
                 <Route path="/tasks" render={(props) => {
-                    return <TaskList
-                        tasks={this.state.tasks} {...props} />
+                    return <TaskList {...props}
+                        tasks={this.state.tasks}
+                        deleteTask={this.deleteTask} />
                 }} />
             </>
         )
