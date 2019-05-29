@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router"
 import EventItem from './EventItem'
-// Event CSS
+import './Events.css'
 
 class EventList extends Component {
     render() {
@@ -18,12 +18,14 @@ class EventList extends Component {
                             Add New Event
                         </button>
                     </div>
-                    {
-                        this.props.events.map(event => {
-                            return <EventItem key={event.id} event={event} deleteEvent={this.props.deleteEvent} {...this.props} />
+                    <div className="eventsList">
+                        {
+                            this.props.events.map(event => {
+                                return <EventItem key={event.id} event={event} deleteEvent={this.props.deleteEvent} {...this.props} />
+                            }
+                            )
                         }
-                        )
-                    }
+                    </div>
                 </div>
             </React.Fragment>
         )

@@ -11,7 +11,8 @@ import TaskForm from "./tasks/TaskForm";
 const remoteURL = "http://localhost:5002";
 const articlesURL = `${remoteURL}/articles`;
 const tasksURL = `${remoteURL}/tasks`;
-const eventsURL = `${remoteURL}/events?_sort=date&_order=asc`;
+const eventsURL = `${remoteURL}/events`;
+const getEventsURL = `${remoteURL}/events?_sort=date&_order=asc`;
 
 class ApplicationViews extends Component {
     state = {
@@ -29,7 +30,7 @@ class ApplicationViews extends Component {
         dbCalls
             .all(articlesURL)
             .then(articles => (newState.articles = articles))
-            .then(() => fetch(eventsURL).then(r => r.json()))
+            .then(() => fetch(getEventsURL).then(r => r.json()))
             .then(events => (newState.events = events))
             .then(() => fetch("http://localhost:5002/tasks").then(r => r.json()))
             .then(tasks => (newState.tasks = tasks))
@@ -79,10 +80,10 @@ class ApplicationViews extends Component {
     addEvent = newEventObj =>
         dbCalls
             .post(newEventObj, eventsURL)
-            .then(() => dbCalls.all(eventsURL))
-            .then(tasks =>
+            .then(() => dbCalls.all(getEventsURL))
+            .then(events =>
                 this.setState({
-                    tasks: tasks
+                    events: events
                 })
             );
 
