@@ -19,7 +19,7 @@ export default class TaskItem extends Component {
             <div key={this.props.task.id} className="card">
                 <CardActions>
                     <Card className="card-body">
-                        <CardContent><h3>{this.props.task.task} {this.props.task.date}</h3>
+                        <CardContent><h3>{this.props.task.task}</h3>
                                         <p>{this.props.task.date}</p></CardContent>
                         {/* <Checkbox
                             checked={this.state.checked}
