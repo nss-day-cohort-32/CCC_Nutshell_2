@@ -151,7 +151,7 @@ class ApplicationViews extends Component {
           exact
           path="/events"
           render={props => {
-            return <EventList events={this.state.events} 
+            return <EventList events={this.state.events}
             {...props}
             deleteEvent={this.deleteEvent} />;
           }}
