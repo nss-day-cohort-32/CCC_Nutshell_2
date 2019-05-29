@@ -70,7 +70,7 @@ class ApplicationViews extends Component {
         const newState = {};
         dbCalls
             .delete(id, eventsURL)
-            .then(() => dbCalls.all(eventsURL))
+            .then(() => dbCalls.all(getEventsURL))
             .then(events => (newState.events = events))
             .then(() => this.setState(newState));
     };
@@ -153,7 +153,7 @@ class ApplicationViews extends Component {
                     exact
                     path="/events"
                     render={props => {
-                        return <EventList events={this.state.events} {...props} />;
+                        return <EventList events={this.state.events} {...props} deleteEvent={this.deleteEvent} />;
                     }}
                 />
 
