@@ -1,5 +1,5 @@
 const remoteURL = "http://localhost:5002"
-const eventsURL = `${remoteURL}/events?_sort=date&_order=asc`
+const eventsURL = `${remoteURL}/events`
 const messagesURL = `${remoteURL}/messages`
 const tasksURL = `${remoteURL}/tasks`
 const usersURL = `${remoteURL}/users`

@@ -45,16 +45,6 @@ class ApplicationViews extends Component {
             .then(() => this.setState(newState));
     }
 
-    addArticle = newArticleObj =>
-        dbCalls
-            .post(newArticleObj, articlesURL)
-            .then(() => dbCalls.all(articlesURL))
-            .then(articles =>
-                this.setState({
-                    articles: articles
-                })
-            );
-
     /* delete article function goes here.... */
     deleteArticle = id => {
         const newState = {};
@@ -76,6 +66,15 @@ class ApplicationViews extends Component {
             .then(() => this.setState(newState));
     };
 
+    deleteEvent = id => {
+        const newState = {};
+        dbCalls
+            .delete(id, eventsURL)
+            .then(() => dbCalls.all(eventsURL))
+            .then(events => (newState.events = events))
+            .then(() => this.setState(newState));
+    };
+
     //   add event Form function goes heere.... //
     addEvent = newEventObj =>
         dbCalls
@@ -84,6 +83,16 @@ class ApplicationViews extends Component {
             .then(events =>
                 this.setState({
                     events: events
+                })
+            );
+
+    addArticle = newArticleObj =>
+        dbCalls
+            .post(newArticleObj, articlesURL)
+            .then(() => dbCalls.all(articlesURL))
+            .then(articles =>
+                this.setState({
+                    articles: articles
                 })
             );
 
@@ -96,6 +105,7 @@ class ApplicationViews extends Component {
                     tasks: tasks
                 })
             );
+
 
     render() {
         return (
