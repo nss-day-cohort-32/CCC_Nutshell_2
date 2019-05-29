@@ -3,14 +3,14 @@ import React, { Component } from "react";
 
 
 export default class ArticleForm extends Component {
- 
-    // Set initial state
+
+  // Set initial state
   state = {
     articleName: "",
     articleSummary: "",
     articleURL: ""
   };
-  
+
 
   // Update state whenever an input field is edited
   handleFieldChange = (event) => {
