@@ -17,7 +17,7 @@ class EventItem extends Component {
                         }}>
                         Edit
                     </button>
-                    <button onClick={this.handleClick}>Delete</button>
+                    <button onClick={() => this.props.deleteEvent(this.props.event.id)}>Delete</button>
                 </div>
             </div>
         )
