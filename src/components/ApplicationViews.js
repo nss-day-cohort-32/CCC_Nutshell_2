@@ -5,10 +5,12 @@ import ArticleList from './articles/ArticleList';
 import EventList from './events/EventList';
 import TaskList from './tasks/TaskList'
 import dbCalls from '../modules/dbCalls'
+import EventForm from "./events/EventForm"
 
 const remoteURL = "http://localhost:5002"
 const articlesURL = `${remoteURL}/articles`
 const tasksURL = `${remoteURL}/tasks`
+const eventsURL = `${remoteURL}/events`
 
 
 class ApplicationViews extends Component {
@@ -56,7 +58,6 @@ class ApplicationViews extends Component {
                     articles: articles
                 }))
 
-
     /* delete article function goes here.... */
     deleteArticle = (id) => {
         const newState = {};
@@ -77,6 +78,14 @@ class ApplicationViews extends Component {
     }
 
 
+    //   add event Form function goes heere.... //
+    addEvent = newEventObj =>
+        dbCalls.post(newEventObj, eventsURL)
+            .then(() => dbCalls.all(eventsURL))
+            .then(events =>
+                this.setState({
+                    events: events
+                }))
 
 
 
@@ -94,8 +103,13 @@ class ApplicationViews extends Component {
                         articles={this.state.articles}
                         deleteArticle={this.deleteArticle} />
                 }} />
+                <Route path="/events/new" render={(props) => {
+                    return <EventForm {...props}
+                        addEvent={this.addEvent}
+                        events={this.state.events} />
+                }} />
 
-                <Route path="/events" render={(props) => {
+                <Route exact path="/events" render={(props) => {
                     return <EventList
                         events={this.state.events} {...props} />
                 }} />
