@@ -58,7 +58,16 @@ class ApplicationViews extends Component {
 
 
     /* delete article function goes here.... */
-
+    deleteArticle = (id) => {
+        const newState = {};
+        dbCalls.delete(id, articlesURL)
+            .then(dbCalls.all(articlesURL))
+            .then(articles => {
+                console.log(articles)
+                newState.articles = articles
+            })
+            .then(() => this.setState(newState))
+    }
 
 
 
@@ -70,12 +79,13 @@ class ApplicationViews extends Component {
                 {/* location form route */}
                 <Route path="/articles/new" render={(props) => {
                     return <ArticleForm {...props}
-                        addArticle={this.addArticle}
+                                        addArticle={this.addArticle}
                         articles={this.state.articles} />
-                }} />
-                <Route exact path="/articles" render={(props) => {
-                    return <ArticleList
-                        articles={this.state.articles} {...props} />
+                    }} />
+                 <Route exact path="/articles" render={(props) => {
+                    return <ArticleList {...props}
+                                        articles={this.state.articles}
+                                        deleteArticle={this.deleteArticle}/>
                 }} />
 
                 <Route path="/events" render={(props) => {

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import "./Article.css"
 
 
 export default class ArticleForm extends Component {
@@ -10,7 +12,6 @@ export default class ArticleForm extends Component {
     articleSummary: "",
     articleURL: ""
   };
-
 
   // Update state whenever an input field is edited
   handleFieldChange = (event) => {
@@ -40,15 +41,16 @@ export default class ArticleForm extends Component {
         .addArticle(article)
         .then(() => this.props.history.push("/articles/new"));
     }
-  };
+  }
 
   render() {
+
     return (
-      <React.Fragment>
+      <React.Fragment >
         <form className="articleForm">
           <div className="form-group">
             <label htmlFor="articleName">Article Name:</label>
-            <input
+            <TextField
               type="text"
               required
               className="form-control"
@@ -59,33 +61,33 @@ export default class ArticleForm extends Component {
           </div>
           <div className="form-group">
             <label htmlFor="summary">Summary</label>
-            <input
+            <TextField
               type="text"
               required
               className="form-control"
               onChange={this.handleFieldChange}
-              id="summary"
+              id="articleSummary"
               placeholder="summary"
             />
           </div>
           <div className="form-group">
             <label htmlFor="URL">URL</label>
-            <input
+            <TextField
               type="text"
               required
               className="form-control"
               onChange={this.handleFieldChange}
-              id="URL"
+              id="articleURL"
               placeholder="URL"
             />
           </div>
-          <button
+          <Button variant="outlined" color="primary" size="large"
             type="submit"
             onClick={this.constructNewArticle}
             className="btn btn-primary"
           >
             Submit New Article
-          </button>
+          </Button>
         </form>
       </React.Fragment>
     );
