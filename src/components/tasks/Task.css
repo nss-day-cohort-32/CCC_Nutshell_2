@@ -1,0 +1,3 @@
+.taskCheckBox:checked + h3 {
+    text-decoration: line-through;
+}
