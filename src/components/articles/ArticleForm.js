@@ -27,9 +27,7 @@ export default class ArticleForm extends Component {
      */
   constructNewArticle = e => {
     e.preventDefault();
-    if (this.state.articleID === "") {
-      window.alert("Please select a caretaker");
-    } else {
+
       const article = {
         name: this.state.articleName,
         summary: this.state.articleSummary,
@@ -40,7 +38,6 @@ export default class ArticleForm extends Component {
       this.props
         .addArticle(article)
         .then(() => this.props.history.push("/articles/new"));
-    }
   }
 
   render() {
