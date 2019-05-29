@@ -14,9 +14,12 @@ export default class TaskItem extends Component {
 
     state = { checked: false }
 
-    // handleCheckboxChange = () => {
-    //     if()
-    // }
+    handleCheckboxChange = () => {
+        this.setState({
+            completed: !this.state.complete
+
+        })
+    }
 
 
     render() {
@@ -27,8 +30,8 @@ export default class TaskItem extends Component {
                         <Checkbox className="taskCheckBox"
                             checked={this.state.checked}
                             onChange={this.handleCheckboxChange}></Checkbox>
-                        <CardContent><h3>{this.props.task.task}</h3></CardContent>
-                        <Link className="nav-link" to={`/articles/${this.props.task.id}`}>Details</Link>
+                        <CardContent><h3>{this.props.task.task}</h3>
+                            <p>{this.props.task.date}</p></CardContent>
                         <Button size="small" color="primary"
                             type="button"
                             className="btn btn-success btn--edit"
