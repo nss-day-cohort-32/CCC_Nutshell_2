@@ -25,8 +25,7 @@ class ApplicationViews extends Component {
     componentDidMount() {
         const newState = {}
 
-        fetch("http://localhost:5002/articles")
-            .then(r => r.json())
+        dbCalls.all(articlesURL)
             .then(articles => newState.articles = articles)
             .then(() => fetch("http://localhost:5002/events")
                 .then(r => r.json()))
@@ -61,11 +60,8 @@ class ApplicationViews extends Component {
     deleteArticle = (id) => {
         const newState = {};
         dbCalls.delete(id, articlesURL)
-            .then(dbCalls.all(articlesURL))
-            .then(articles => {
-                console.log(articles)
-                newState.articles = articles
-            })
+            .then(() => dbCalls.all(articlesURL))
+            .then(articles => newState.articles = articles)
             .then(() => this.setState(newState))
     }
 
