@@ -36,7 +36,7 @@ export default class EventForm extends Component {
       // Create the article and redirect user to article list
       this.props
         .addEvent(eventObj)
-        .then(() => this.props.history.push("/articles/new"));
+        .then(() => this.props.history.push("/events"));
   }
 
   render() {
