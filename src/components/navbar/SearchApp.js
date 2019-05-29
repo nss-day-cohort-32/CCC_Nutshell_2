@@ -83,16 +83,16 @@ function SearchAppBar() {
             </div>
             <ul className="nav nav-pills">
                     <li className="nav-item">
-                        <Link color="inherit"variant="body2" className="nav-link" to="/articles">Articles</Link>
+                        <Link color="inherit"variant="body1" className="nav-link" to="/articles">Articles</Link>
                     </li>
                     <li className="nav-item">
-                        <Link color="inherit"variant="body2" className="nav-link" to="/events">Events</Link>
+                        <Link color="inherit"variant="body1" className="nav-link" to="/events">Events</Link>
                     </li>
                     <li className="nav-item">
-                        <Link color="inherit"variant="body2" className="nav-link" to="/tasks">Tasks</Link>
+                        <Link color="inherit"variant="body1" className="nav-link" to="/tasks">Tasks</Link>
                     </li>
                     <li className="nav-item">
-                        <Link color="inherit"variant="body2" className="nav-link" to="#">Logout</Link>
+                        <Link color="inherit"variant="body1" className="nav-link" to="#">Logout</Link>
                     </li>
                 </ul>
           </div>

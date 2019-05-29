@@ -11,7 +11,7 @@ class ArticleList extends Component {
         return (
             <React.Fragment>
                 <Card className="articleButton">
-                    <Button variant="outlined" color="primary" size="large" type="Button"
+                    <Button  variant="outlined" color="primary" size="large" type="button"
                         className="btn btn-success"
                         onClick={() => {
                             this.props.history.push("/articles/new")
