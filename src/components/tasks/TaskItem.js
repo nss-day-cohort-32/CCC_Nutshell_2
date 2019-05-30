@@ -29,7 +29,7 @@ export default class TaskItem extends Component {
                             type="button"
                             className="btn btn-success btn--edit"
                             onClick={() => {
-                                this.props.history.push(`/articles/${this.props.task.id}/edit`);
+                                this.props.history.push(`/tasks/${this.props.task.id}/edit`);
                             }}>
                             Edit Task
                         </Button>
