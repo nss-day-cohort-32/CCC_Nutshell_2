@@ -32,7 +32,7 @@ export default class TaskForm extends Component {
     // Create the article and redirect user to article list
     this.props
       .addTask(taskObj)
-      .then(() => this.props.history.push("/tasks/new"));
+      .then(() => this.props.history.push("/tasks"));
   };
 
   render() {
