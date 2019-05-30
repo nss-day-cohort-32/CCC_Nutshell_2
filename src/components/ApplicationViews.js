@@ -118,16 +118,16 @@ class ApplicationViews extends Component {
             });
     };
 
-    updateEvent= (editedEventObj) => {
-        return dbCalls.put(eventsURL,editedEventObj)
-        .then(() => dbCalls.all(eventsURL))
+    updateEvent = (editedEventObj) => {
+        return dbCalls.put(eventsURL, editedEventObj)
+            .then(() => dbCalls.all(eventsURL))
             .then(events => {
-                console.log("this is history",this.props.history)
+                console.log("this is history", this.props.history)
                 this.props.history.push("/events")
                 this.setState({
-                events: events
-          })
-        });
+                    events: events
+                })
+            });
     };
 
     addTask = newTaskObj =>
@@ -188,7 +188,7 @@ class ApplicationViews extends Component {
                 />
                 <Route
                     path="/events/:eventId(\d+)/edit" render={props => {
-                        return <EventEditForm {...props} events={this.state.events} updateEvent={this.updateEvent}/>
+                        return <EventEditForm {...props} events={this.state.events} updateEvent={this.updateEvent} />
                     }} />
 
                 <Route
