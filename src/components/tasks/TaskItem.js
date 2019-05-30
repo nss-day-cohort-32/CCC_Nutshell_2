@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
-// import "./Task.css"
+import "./Task.css"
+import dbCalls from "../../modules/dbCalls";
 
 const Checkbox = props => (
     <input type="checkbox" {...props} />
@@ -15,11 +15,24 @@ export default class TaskItem extends Component {
     state = { checked: false }
 
     handleCheckboxChange = () => {
+        console.log("clicked")
         this.setState({
-            completed: !this.state.complete
+            checked: !this.state.checked
+        }, this.callUpdate)
 
-        })
     }
+
+    callUpdate = () => {
+        const updatedTask = {
+            id: this.props.task.id,
+            date: this.props.task.date,
+            completed: this.state.checked
+        }
+        if (this.state.checked) {
+            this.props.patchTask(updatedTask)
+        }
+    }
+
 
 
     render() {
@@ -29,7 +42,8 @@ export default class TaskItem extends Component {
                     <Card className="card-body">
                         <Checkbox className="taskCheckBox"
                             checked={this.state.checked}
-                            onChange={this.handleCheckboxChange}></Checkbox>
+                            onChange={this.handleCheckboxChange}
+                            id={this.props.tasks.id}></Checkbox>
                         <CardContent><h3>{this.props.task.task}</h3>
                             <p>{this.props.task.date}</p></CardContent>
                         <Button size="small" color="primary"
@@ -49,3 +63,4 @@ export default class TaskItem extends Component {
         )
     }
 }
+

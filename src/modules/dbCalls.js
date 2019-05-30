@@ -1,4 +1,4 @@
- const remoteURL = "http://localhost:5002"
+const remoteURL = "http://localhost:5002"
 const eventsURL = `${remoteURL}/events`
 const messagesURL = `${remoteURL}/messages`
 const tasksURL = `${remoteURL}/tasks`
@@ -17,7 +17,8 @@ export default Object.create(null, {
         }
     },
     all: {
-        value: function (URL) { console.log("url", URL)
+        value: function (URL) {
+            console.log("url", URL)
             return fetch(`${URL}`).then(e => e.json())
         }
     },
@@ -46,6 +47,18 @@ export default Object.create(null, {
         value: function (editObj, URL) {
             return fetch(`${URL}/${editObj.id}`, {
                 method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(editObj)
+            }).then(data => data.json());
+        }
+    },
+    patch: {
+        value: function (editObj, URL) {
+            console.log(`${URL}/${editObj.id}`)
+            return fetch(`${URL}/${editObj.id}`, {
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
                 },
