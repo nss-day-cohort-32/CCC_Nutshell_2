@@ -11,11 +11,14 @@ import TaskForm from "./tasks/TaskForm";
 import ArticleEditForm from "./articles/ArticleEditForm"
 import EventEditForm from "./events/EventEditForm"
 
+const now = new Date();
+const today = now.getFullYear() + '-' + ((now.getMonth() < 9 ? `0` : ``) + (now.getMonth() + 1)) + '-' + now.getDate();
+
 const remoteURL = "http://localhost:5002";
 const articlesURL = `${remoteURL}/articles`;
 const tasksURL = `${remoteURL}/tasks`;
 const eventsURL = `${remoteURL}/events`;
-const getEventsURL = `${remoteURL}/events?_sort=date&_order=asc`;
+const getEventsURL = `${remoteURL}/events?_sort=date&_order=asc&date_gte=${today}`;
 
 class ApplicationViews extends Component {
     state = {
@@ -29,6 +32,9 @@ class ApplicationViews extends Component {
 
     componentDidMount() {
         const newState = {};
+
+        console.log(today)
+        console.log(getEventsURL)
 
         dbCalls
             .all(articlesURL)
@@ -112,16 +118,16 @@ class ApplicationViews extends Component {
             });
     };
 
-    updateEvent= (editedEventObj) => {
-        return dbCalls.put(eventsURL,editedEventObj)
-        .then(() => dbCalls.all(eventsURL))
+    updateEvent = (editedEventObj) => {
+        return dbCalls.put(eventsURL, editedEventObj)
+            .then(() => dbCalls.all(eventsURL))
             .then(events => {
-                console.log("this is history",this.props.history)
+                console.log("this is history", this.props.history)
                 this.props.history.push("/events")
                 this.setState({
-                events: events
-          })
-        });
+                    events: events
+                })
+            });
     };
 
     addTask = newTaskObj =>
@@ -193,7 +199,7 @@ class ApplicationViews extends Component {
                 />
                 <Route
                     path="/events/:eventId(\d+)/edit" render={props => {
-                        return <EventEditForm {...props} events={this.state.events} updateEvent={this.updateEvent}/>
+                        return <EventEditForm {...props} events={this.state.events} updateEvent={this.updateEvent} />
                     }} />
 
                 <Route
