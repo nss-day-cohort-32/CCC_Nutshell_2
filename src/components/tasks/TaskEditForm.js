@@ -10,10 +10,8 @@ class TaskEditForm extends Component {
   state = {
     taskTitle: "",
     taskDate: "",
-    taskCompleted: "",
     task: "",
     date: "",
-    completed: ""
   };
 
   handleFieldChange = evt => {
@@ -55,7 +53,7 @@ class TaskEditForm extends Component {
                     required
                     className="form-control"
                     onChange={this.handleFieldChange}
-                    id="taskName"
+                    id="taskTitle"
                     placeholder={this.state.task}
                   />
                 </div>
