@@ -12,11 +12,14 @@ import ArticleEditForm from "./articles/ArticleEditForm";
 import EventEditForm from "./events/EventEditForm";
 import TaskEditForm from "./tasks/TaskEditForm";
 
+const now = new Date();
+const today = now.getFullYear() + '-' + ((now.getMonth() < 9 ? `0` : ``) + (now.getMonth() + 1)) + '-' + now.getDate();
+
 const remoteURL = "http://localhost:5002";
 const articlesURL = `${remoteURL}/articles`;
 const tasksURL = `${remoteURL}/tasks`;
 const eventsURL = `${remoteURL}/events`;
-const getEventsURL = `${remoteURL}/events?_sort=date&_order=asc`;
+const getEventsURL = `${remoteURL}/events?_sort=date&_order=asc&date_gte=${today}`;
 
 class ApplicationViews extends Component {
   state = {
