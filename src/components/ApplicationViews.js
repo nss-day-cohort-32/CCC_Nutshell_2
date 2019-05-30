@@ -11,7 +11,7 @@ import TaskForm from "./tasks/TaskForm";
 import ArticleEditForm from "./articles/ArticleEditForm"
 
 const now = new Date();
-const today = now.getFullYear() + '-0' + (now.getMonth() + 1) + '-' + now.getDate();
+const today = now.getFullYear() + '-' + ((now.getMonth() < 9 ? `0` : ``) + (now.getMonth() + 1)) + '-' + now.getDate();
 
 const remoteURL = "http://localhost:5002";
 const articlesURL = `${remoteURL}/articles`;
