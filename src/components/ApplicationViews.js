@@ -13,7 +13,12 @@ import EventEditForm from "./events/EventEditForm";
 import TaskEditForm from "./tasks/TaskEditForm";
 
 const now = new Date();
-const today = now.getFullYear() + '-' + ((now.getMonth() < 9 ? `0` : ``) + (now.getMonth() + 1)) + '-' + now.getDate();
+const today =
+  now.getFullYear() +
+  "-" +
+  ((now.getMonth() < 9 ? `0` : ``) + (now.getMonth() + 1)) +
+  "-" +
+  now.getDate();
 
 const remoteURL = "http://localhost:5002";
 const articlesURL = `${remoteURL}/articles`;
@@ -153,6 +158,18 @@ class ApplicationViews extends Component {
         })
       );
 
+  patchTask = editObj => {
+    console.log(editObj);
+    dbCalls
+      .patch(editObj, tasksURL)
+      .then(() => dbCalls.all(tasksURL))
+      .then(tasks =>
+        this.setState({
+          tasks: tasks
+        })
+      );
+  };
+
   render() {
     return (
       <>
@@ -241,6 +258,7 @@ class ApplicationViews extends Component {
               <TaskList
                 {...props}
                 tasks={this.state.tasks}
+                patchTask={this.patchTask}
                 deleteTask={this.deleteTask}
               />
             );

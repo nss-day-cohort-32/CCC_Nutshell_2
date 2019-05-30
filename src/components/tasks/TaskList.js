@@ -18,7 +18,7 @@ class TaskList extends Component {
                 {
                     this.props.tasks.map(task => {
                         return <TaskItem key={task.id} task={task}
-                            deleteTask={this.props.deleteTask} {...this.props} />
+                            deleteTask={this.props.deleteTask} patchTask={this.props.patchTask} {...this.props} />
                     })
                 }
             </React.Fragment>
