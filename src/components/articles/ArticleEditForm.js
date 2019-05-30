@@ -25,12 +25,13 @@ class ArticleEditForm extends Component {
         console.log(stateToChange)
       }
       updateExisitingArticle = (evt) => {
-        evt.preventDefault()
-        const editArticle = {
+
+          evt.preventDefault()
+          const editArticle = {
         id: this.props.match.params.articleId,
         name: this.state.articleName,
         summary: this.state.articleSummary,
-        URL: this.state.articleURL
+            URL: this.state.articleURL
         };
         console.log("edit articles", editArticle)
           this.props.updateArticle(editArticle)
@@ -57,7 +58,7 @@ class ArticleEditForm extends Component {
                             className="form-control"
                             onChange={this.handleFieldChange}
                             id="articleName"
-                            placeholder="Article Name"
+                            placeholder={this.state.name}
                         />
                     </div>
                     <div className="form-group">
@@ -67,7 +68,7 @@ class ArticleEditForm extends Component {
                             className="form-control"
                             onChange={this.handleFieldChange}
                             id="articleSummary"
-                            placeholder="summary"
+                            placeholder={this.state.summary}
                         />
                     </div>
                     <div className="form-group">
@@ -77,7 +78,7 @@ class ArticleEditForm extends Component {
                             className="form-control"
                             onChange={this.handleFieldChange}
                             id="articleURL"
-                            placeholder="URL"
+                            placeholder={this.state.URL}
                         />
                     </div>
                     <Button variant="outlined" color="primary" size="large"
