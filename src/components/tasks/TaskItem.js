@@ -29,7 +29,13 @@ export default class TaskItem extends Component {
         this.props.patchTask(updatedTask)
     }
 
-
+    getStyle = () => {
+        return {
+            color: this.props.task.completed ? "red" : "black",
+            textDecoration: this.props.task.completed ?
+                "line-through" : "none",
+        }
+    }
 
     render() {
         return (
@@ -40,7 +46,7 @@ export default class TaskItem extends Component {
                             checked={this.state.checked}
                             onChange={this.handleCheckboxChange}
                             id={this.props.tasks.id}></Checkbox>
-                        <CardContent><h3>{this.props.task.task}</h3>
+                        <CardContent><h3 style={this.getStyle()}>{this.props.task.task}</h3>
                             <p>{this.props.task.date}</p></CardContent>
                         <Button size="small" color="primary"
                             type="button"
