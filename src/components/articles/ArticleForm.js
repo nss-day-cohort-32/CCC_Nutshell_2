@@ -37,7 +37,7 @@ export default class ArticleForm extends Component {
       // Create the article and redirect user to article list
       this.props
         .addArticle(article)
-        .then(() => this.props.history.push("/articles/new"));
+        .then(() => this.props.history.push("/articles"));
   }
 
   render() {
