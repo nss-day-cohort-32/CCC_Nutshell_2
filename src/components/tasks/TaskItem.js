@@ -4,7 +4,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import "./Task.css"
-import dbCalls from "../../modules/dbCalls";
 
 const Checkbox = props => (
     <input type="checkbox" {...props} />
@@ -15,7 +14,6 @@ export default class TaskItem extends Component {
     state = { checked: false }
 
     handleCheckboxChange = () => {
-        console.log("clicked")
         this.setState({
             checked: !this.state.checked
         }, this.callUpdate)
@@ -28,9 +26,7 @@ export default class TaskItem extends Component {
             date: this.props.task.date,
             completed: this.state.checked
         }
-        if (this.state.checked) {
-            this.props.patchTask(updatedTask)
-        }
+        this.props.patchTask(updatedTask)
     }
 
 

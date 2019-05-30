@@ -46,7 +46,7 @@ export default class ArticleForm extends Component {
       <React.Fragment >
         <form className="articleForm">
           <div className="form-group">
-            <label htmlFor="articleName">Article Name:</label>
+
             <TextField
               type="text"
               required
@@ -57,7 +57,7 @@ export default class ArticleForm extends Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="summary">Summary</label>
+
             <TextField
               type="text"
               required
@@ -68,7 +68,7 @@ export default class ArticleForm extends Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="URL">URL</label>
+
             <TextField
               type="text"
               required
