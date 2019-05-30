@@ -9,6 +9,7 @@ import dbCalls from "../modules/dbCalls";
 import EventForm from "./events/EventForm";
 import TaskForm from "./tasks/TaskForm";
 import ArticleEditForm from "./articles/ArticleEditForm"
+import EventEditForm from "./events/EventEditForm"
 
 const remoteURL = "http://localhost:5002";
 const articlesURL = `${remoteURL}/articles`;
@@ -111,6 +112,18 @@ class ApplicationViews extends Component {
         });
     };
 
+    updateEvent= (editedEventObj) => {
+        return dbCalls.put(eventsURL,editedEventObj)
+        .then(() => dbCalls.all(eventsURL))
+            .then(events => {
+                console.log("this is history",this.props.history)
+                this.props.history.push("/events")
+                this.setState({
+                events: events
+          })
+        });
+    };
+
     addTask = newTaskObj =>
         dbCalls
             .post(newTaskObj, tasksURL)
@@ -151,7 +164,7 @@ class ApplicationViews extends Component {
                         );
                     }}
                 />
-                   <Route
+                <Route
                     path="/articles/:articleId(\d+)/edit" render={props => {
                         return <ArticleEditForm {...props} articles={this.state.articles} updateArticle={this.updateArticle}/>
                     }} />
@@ -167,6 +180,10 @@ class ApplicationViews extends Component {
                         );
                     }}
                 />
+                <Route
+                    path="/events/:eventId(\d+)/edit" render={props => {
+                        return <EventEditForm {...props} events={this.state.events} updateEvent={this.updateEvent}/>
+                    }} />
 
                 <Route
                     exact
