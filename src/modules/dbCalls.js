@@ -7,12 +7,7 @@ const friendsURL = `${remoteURL}/friends`
 
 export default Object.create(null, {
     get: {
-        value: function (id, URL) {
-            /*
-                Since the purpose of this module is to be used by
-                all of the more specialized one, then the string
-                of `animals` should not be hard coded here.
-            */
+        value: function (URL, id) {
             return fetch(`${URL}/${id}`).then(e => e.json())
         }
     },
@@ -44,7 +39,7 @@ export default Object.create(null, {
         }
     },
     put: {
-        value: function (editObj, URL) {
+        value: function (URL, editObj) {
             return fetch(`${URL}/${editObj.id}`, {
                 method: "PUT",
                 headers: {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
+import { withRouter } from 'react-router'
 import ArticleForm from "./articles/ArticleForm";
 import ArticleList from "./articles/ArticleList";
 import EventList from "./events/EventList";
@@ -7,6 +8,7 @@ import TaskList from "./tasks/TaskList";
 import dbCalls from "../modules/dbCalls";
 import EventForm from "./events/EventForm";
 import TaskForm from "./tasks/TaskForm";
+import ArticleEditForm from "./articles/ArticleEditForm"
 
 const remoteURL = "http://localhost:5002";
 const articlesURL = `${remoteURL}/articles`;
@@ -96,6 +98,19 @@ class ApplicationViews extends Component {
                 })
             );
 
+    //edit article function goes to here..../
+    updateArticle= (editedArticleObj) => {
+        return dbCalls.put(articlesURL,editedArticleObj)
+        .then(() => dbCalls.all(articlesURL))
+            .then(articles => {
+                console.log("this is history",this.props.history)
+                this.props.history.push("/articles")
+                this.setState({
+                articles: articles
+          })
+        });
+    };
+
     addTask = newTaskObj =>
         dbCalls
             .post(newTaskObj, tasksURL)
@@ -136,6 +151,10 @@ class ApplicationViews extends Component {
                         );
                     }}
                 />
+                   <Route
+                    path="/articles/:articleId(\d+)/edit" render={props => {
+                        return <ArticleEditForm {...props} articles={this.state.articles} updateArticle={this.updateArticle}/>
+                    }} />
                 <Route
                     path="/events/new"
                     render={props => {
@@ -186,4 +205,4 @@ class ApplicationViews extends Component {
     }
 }
 
-export default ApplicationViews;
+export default withRouter(ApplicationViews)
