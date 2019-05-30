@@ -140,6 +140,17 @@ class ApplicationViews extends Component {
                 })
             );
 
+    patchTask = editObj => {
+        console.log(editObj)
+        dbCalls
+            .patch(editObj, tasksURL)
+            .then(() => dbCalls.all(tasksURL))
+            .then(tasks =>
+                this.setState({
+                    tasks: tasks
+                })
+            );
+    }
 
     render() {
         return (
@@ -206,6 +217,7 @@ class ApplicationViews extends Component {
                             <TaskList
                                 {...props}
                                 tasks={this.state.tasks}
+                                patchTask={this.patchTask}
                                 deleteTask={this.deleteTask}
                             />
                         );
