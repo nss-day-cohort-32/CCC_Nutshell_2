@@ -7,6 +7,7 @@ import TaskList from "./tasks/TaskList";
 import dbCalls from "../modules/dbCalls";
 import EventForm from "./events/EventForm";
 import TaskForm from "./tasks/TaskForm";
+import ArticleEditForm from "./articles/ArticleEditForm"
 
 const remoteURL = "http://localhost:5002";
 const articlesURL = `${remoteURL}/articles`;
@@ -54,6 +55,17 @@ class ApplicationViews extends Component {
       .then(() => this.setState(newState));
   };
 
+    //update the article function goes here....
+    updateArticle= (editedArticleObj) => {
+        return dbCalls.put(articlesURL,editedArticleObj)
+        .then(() => dbCalls.all(articlesURL))
+            .then(articles => {
+                this.props.history.push("/articles")
+                this.setState({
+                articles: articles
+          })
+        });
+    };
   /* delete task function goes here.... */
 
   deleteTask = id => {
@@ -64,7 +76,7 @@ class ApplicationViews extends Component {
       .then(tasks => (newState.tasks = tasks))
       .then(() => this.setState(newState));
   };
-
+/* delete events function goes here.... */
   deleteEvent = id => {
     const newState = {};
     dbCalls
@@ -133,7 +145,12 @@ class ApplicationViews extends Component {
               />
             );
           }}
-        />
+            />
+              <Route
+                    path="/articles/:articleId(\d+)/edit" render={props => {
+                    return <ArticleEditForm {...props} articles={this.state.articles}
+                                                        updateArticle={this.updateArticle} />
+                    }} />
         <Route
           path="/events/new"
           render={props => {

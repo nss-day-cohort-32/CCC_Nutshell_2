@@ -24,7 +24,9 @@ class ArticleList extends Component {
                 {
                     this.props.articles.map(article => {
                         return <ArticleItem key={article.id} article={article}
-                            deleteArticle={this.props.deleteArticle} {...this.props} />
+                            deleteArticle={this.props.deleteArticle} {...this.props} 
+                            updateArticle={this.props.updateArticle} {...this.props}
+                            />
                     })
                     }
                     </Card>

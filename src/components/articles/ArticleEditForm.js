@@ -2,22 +2,55 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import "./Article.css"
+import dbCalls from '../../modules/dbCalls';
 
 
+
+const remoteURL = "http://localhost:5002";
+const articlesURL = `${remoteURL}/articles`;
 class ArticleEditForm extends Component {
 
-
-
-
-
-
+    state = {
+        articleName: "",
+        articleSummary: "",
+        articleURL: "",
+        name: "",
+        summary: "",
+        URL: ""
+      }
+      handleFieldChange = (evt) => {
+          const stateToChange = {};
+          stateToChange[evt.target.id] = evt.target.value
+        this.setState(stateToChange)
+        console.log(stateToChange)
+      }
+      updateExisitingArticle = (evt) => {
+        evt.preventDefault()
+        const editArticle = {
+        id: this.props.match.params.articleId,
+        name: this.state.articleName,
+        summary: this.state.articleSummary,
+        URL: this.state.articleURL
+        };
+        console.log("edit articles", editArticle)
+          this.props.updateArticle(editArticle)
+      }
+    componentDidMount() {
+          dbCalls.get(articlesURL,this.props.match.params.articleId)
+          .then(article => {
+            this.setState({
+                name: article.name,
+                summary: article.summary,
+                URL: article.URL
+            });
+          })
+        }
 
     render() {
         return (
             <React.Fragment >
                 <form className="articleForm">
                     <div className="form-group">
-                        <label htmlFor="articleName">Article Name:</label>
                         <TextField
                             type="text"
                             required
@@ -28,7 +61,6 @@ class ArticleEditForm extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="summary">Summary</label>
                         <TextField
                             type="text"
                             required
@@ -39,7 +71,6 @@ class ArticleEditForm extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="URL">URL</label>
                         <TextField
                             type="text"
                             required
@@ -51,10 +82,10 @@ class ArticleEditForm extends Component {
                     </div>
                     <Button variant="outlined" color="primary" size="large"
                         type="submit"
-                        onClick={this.constructNewArticle}
+                        onClick={this.updateExisitingArticle}
                         className="btn btn-primary"
                     >
-                        Submit New Article
+                        Update
                 </Button>
                 </form>
             </React.Fragment>
