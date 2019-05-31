@@ -11,9 +11,6 @@ const articlesURL = `${remoteURL}/articles`;
 class ArticleEditForm extends Component {
 
     state = {
-        articleName: "",
-        articleSummary: "",
-        articleURL: "",
         name: "",
         summary: "",
         URL: ""
@@ -22,16 +19,16 @@ class ArticleEditForm extends Component {
           const stateToChange = {};
           stateToChange[evt.target.id] = evt.target.value
         this.setState(stateToChange)
-        console.log(stateToChange)
+        // console.log(stateToChange)
       }
       updateExisitingArticle = (evt) => {
 
           evt.preventDefault()
           const editArticle = {
         id: this.props.match.params.articleId,
-        name: this.state.articleName,
-        summary: this.state.articleSummary,
-            URL: this.state.articleURL
+        name: this.state.name,
+        summary: this.state.summary,
+            URL: this.state.URL
         };
         console.log("edit articles", editArticle)
           this.props.updateArticle(editArticle)
@@ -57,8 +54,8 @@ class ArticleEditForm extends Component {
                             required
                             className="form-control"
                             onChange={this.handleFieldChange}
-                            id="articleName"
-                            placeholder={this.state.name}
+                            id="name"
+                            value={this.state.name}
                         />
                     </div>
                     <div className="form-group">
@@ -67,8 +64,8 @@ class ArticleEditForm extends Component {
                             required
                             className="form-control"
                             onChange={this.handleFieldChange}
-                            id="articleSummary"
-                            placeholder={this.state.summary}
+                            id="summary"
+                            value={this.state.summary}
                         />
                     </div>
                     <div className="form-group">
@@ -77,8 +74,8 @@ class ArticleEditForm extends Component {
                             required
                             className="form-control"
                             onChange={this.handleFieldChange}
-                            id="articleURL"
-                            placeholder={this.state.URL}
+                            id="URL"
+                            value={this.state.URL}
                         />
                     </div>
                     <Button variant="outlined" color="primary" size="large"
