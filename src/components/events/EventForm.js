@@ -27,16 +27,18 @@ export default class EventForm extends Component {
      */
   constructNewEvent = e => {
     e.preventDefault();
-      const eventObj = {
-        title: this.state.eventName,
-        date: this.state.eventDate,
-        location: this.state.eventLocation,
-      };
+    let userId = sessionStorage.getItem('userId')
+    const eventObj = {
+      title: this.state.eventName,
+      date: this.state.eventDate,
+      location: this.state.eventLocation,
+      userId: parseInt(userId)
+    };
 
-      // Create the article and redirect user to article list
-      this.props
-        .addEvent(eventObj)
-        .then(() => this.props.history.push("/events"));
+    // Create the article and redirect user to article list
+    this.props
+      .addEvent(eventObj)
+      .then(() => this.props.history.push("/events"));
   }
 
   render() {
