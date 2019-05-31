@@ -13,15 +13,10 @@ import EventEditForm from "./events/EventEditForm";
 import TaskEditForm from "./tasks/TaskEditForm";
 import Login from "./Auth/Login"
 import Registeration from "./Auth/Registration"
+import GetToday from "../modules/GetToday"
 
-
-const now = new Date();
-const today =
-  now.getFullYear() +
-  "-" +
-  ((now.getMonth() < 9 ? `0` : ``) + (now.getMonth() + 1)) +
-  "-" +
-  now.getDate();
+let today = GetToday.getToday()
+console.log("today", today)
 
 const remoteURL = "http://localhost:5002";
 const articlesURL = `${remoteURL}/articles`;
@@ -131,7 +126,7 @@ class ApplicationViews extends Component {
   updateEvent = editedEventObj => {
     return dbCalls
       .put(eventsURL, editedEventObj)
-      .then(() => dbCalls.all(eventsURL))
+      .then(() => dbCalls.all(`${remoteURL}/events?_sort=date&_order=asc&date_gte=${today}`))
       .then(events => {
         console.log("this is history", this.props.history);
         this.props.history.push("/events");
