@@ -8,9 +8,6 @@ const eventsURL = `${remoteURL}/events`;
 
 class EventEditForm extends Component {
   state = {
-    eventTitle: "",
-    eventLocation: "",
-    eventDate: "",
     title: "",
     location: "",
     date: ""
@@ -20,15 +17,15 @@ class EventEditForm extends Component {
     const stateToChange = {};
     stateToChange[evt.target.id] = evt.target.value;
     this.setState(stateToChange);
-    console.log(stateToChange);
+    // console.log(stateToChange);
   };
   updateExisitingEvent = evt => {
     evt.preventDefault();
     const editEvent = {
       id: this.props.match.params.eventId,
-      title: this.state.eventTitle,
-      location: this.state.eventLocation,
-      date: this.state.eventDate
+      title: this.state.title,
+      location: this.state.location,
+      date: this.state.date
     };
     console.log("edit events", editEvent);
     this.props.updateEvent(editEvent);
@@ -53,7 +50,7 @@ class EventEditForm extends Component {
               required
               className="form-control"
               onChange={this.handleFieldChange}
-              id="eventTitle"
+              id="title"
               value={this.state.title}
             />
           </div>
@@ -63,8 +60,8 @@ class EventEditForm extends Component {
               required
               className="form-control"
               onChange={this.handleFieldChange}
-              id="eventLocation"
-              placeholder={this.state.location}
+              id="location"
+              value={this.state.location}
             />
           </div>
           <div className="form-group">
@@ -73,8 +70,8 @@ class EventEditForm extends Component {
               required
               className="form-control"
               onChange={this.handleFieldChange}
-              id="eventDate"
-              placeholder={this.state.date}
+              id="date"
+              value={this.state.date}
             />
           </div>
           <Button
