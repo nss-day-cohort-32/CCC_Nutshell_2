@@ -12,9 +12,9 @@ export default Object.create(null, {
         }
     },
     all: {
-        value: function (URL) {
+        value: function (URL, sessionId) {
             console.log("url", URL)
-            return fetch(`${URL}`).then(e => e.json())
+            return fetch(`${URL}?userId=${sessionId}`).then(e => e.json())
         }
     },
     delete: {
@@ -58,6 +58,26 @@ export default Object.create(null, {
                 },
                 body: JSON.stringify(editObj)
             }).then(data => data.json());
+        }
+    },
+    getUsers: {
+        value: function(id) {
+        return fetch(`http://localhost:5002/users/${id}`).then(e => e.json());
+    }},
+    getAllUsers: {
+        value: function () {
+            return fetch(`${remoteURL}/users`).then(e => e.json());
+        },
+        postUser: {
+            value: function (newUser) {
+                return fetch(`${remoteURL}/users`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(newUser)
+                }).then(data => data.json())
+            }
         }
     }
 })

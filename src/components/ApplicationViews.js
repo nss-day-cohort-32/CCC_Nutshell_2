@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { withRouter } from "react-router";
 import ArticleForm from "./articles/ArticleForm";
 import ArticleList from "./articles/ArticleList";
@@ -11,6 +11,9 @@ import TaskForm from "./tasks/TaskForm";
 import ArticleEditForm from "./articles/ArticleEditForm";
 import EventEditForm from "./events/EventEditForm";
 import TaskEditForm from "./tasks/TaskEditForm";
+import Login from "./Auth/Login"
+import Registeration from "./Auth/Registration"
+
 
 const now = new Date();
 const today =
@@ -24,16 +27,19 @@ const remoteURL = "http://localhost:5002";
 const articlesURL = `${remoteURL}/articles`;
 const tasksURL = `${remoteURL}/tasks`;
 const eventsURL = `${remoteURL}/events`;
+const usersURL = `${remoteURL}/users`
 const getEventsURL = `${remoteURL}/events?_sort=date&_order=asc&date_gte=${today}`;
 
 class ApplicationViews extends Component {
+    isAuthenticated = () => sessionStorage.getItem("username") !== null
   state = {
     articles: [],
     events: [],
     tasks: [],
     messages: [],
     friends: [],
-    users: []
+      users: [],
+      sessionId: sessionStorage.getItem("userId")
   };
 
   componentDidMount() {
@@ -170,9 +176,41 @@ class ApplicationViews extends Component {
       );
   };
 
+    // update users
+    updateComponent = () => {
+
+        dbCalls.getUsers().then(allUsers => {
+            this.setState({ users: allUsers });
+            console.log(allUsers)
+        })
+        dbCalls.getUsers(this.state.sessionId)
+            .then(allIdea => {
+                this.setState({     //the method setstate stores the result in the local component state by using React 
+                    idea: allIdea
+                })
+            })
+    }
+    // add users here
+    addUser = (user) => dbCalls.post(user, usersURL)
+    .then(() => dbCalls.all(usersURL))
+    .then(Allusers => this.setState({
+        users: Allusers             //added this three line of codes today to set the new user.
+    }))
+
   render() {
     return (
-      <>
+        <>
+              <Route path="/login" render={(props) => {
+                    return <Login {...props}
+                        users={this.state.users}
+                        updateComponent={this.updateComponent} />
+                }} />
+                <Route path="/register" render={(props) => {
+                return <Registeration {...props}
+                         users={this.state.users}
+                        addUser={this.addUser} />
+                }} />
+
         {/* location form route */}
         <Route
           path="/articles/new"
@@ -181,23 +219,28 @@ class ApplicationViews extends Component {
               <ArticleForm
                 {...props}
                 addArticle={this.addArticle}
-                articles={this.state.articles}
+                    articles={this.state.articles}
+                    sessionId= {this.state.sessionId}
               />
             );
           }}
         />
         <Route
-          exact
-          path="/articles"
-          render={props => {
-            return (
-              <ArticleList
-                {...props}
-                articles={this.state.articles}
-                deleteArticle={this.deleteArticle}
-              />
-            );
-          }}
+                exact
+                path="/articles"
+                render={props => {
+                    if (this.isAuthenticated()) {
+                        return (
+                            <ArticleList
+                                {...props}
+                                articles={this.state.articles}
+                                deleteArticle={this.deleteArticle}
+                            />
+                        );
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                }}
         />
         <Route
           path="/articles/:articleId(\d+)/edit"
@@ -218,7 +261,8 @@ class ApplicationViews extends Component {
               <EventForm
                 {...props}
                 addEvent={this.addEvent}
-                events={this.state.events}
+                    events={this.state.events}
+                    sessionId= {this.state.sessionId}
               />
             );
           }}
@@ -237,32 +281,40 @@ class ApplicationViews extends Component {
         />
 
         <Route
-          exact
-          path="/events"
-          render={props => {
-            return (
-              <EventList
-                events={this.state.events}
-                {...props}
-                deleteEvent={this.deleteEvent}
-              />
-            );
-          }}
+                exact
+                path="/events"
+                render={props => {
+                    if (this.isAuthenticated()) {
+                        return (
+                            <EventList
+                                events={this.state.events}
+                                {...props}
+                                deleteEvent={this.deleteEvent}
+                            />
+                        );
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                }}
         />
 
         <Route
-          exact
-          path="/tasks"
-          render={props => {
-            return (
-              <TaskList
-                {...props}
-                tasks={this.state.tasks}
-                patchTask={this.patchTask}
-                deleteTask={this.deleteTask}
-              />
-            );
-          }}
+                exact
+                path="/tasks"
+                render={props => {
+                    if (this.isAuthenticated()) {
+                        return (
+                            <TaskList
+                                {...props}
+                                tasks={this.state.tasks}
+                                patchTask={this.patchTask}
+                                deleteTask={this.deleteTask}
+                            />
+                        );
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                }}
         />
 
         <Route
@@ -278,16 +330,17 @@ class ApplicationViews extends Component {
           }}
         />
         <Route
-          path="/tasks/new"
-          render={props => {
-            return (
-              <TaskForm
-                {...props}
-                tasks={this.state.tasks}
-                addTask={this.addTask}
-              />
-            );
-          }}
+                path="/tasks/new"
+                render={props => {
+                        return (
+                            <TaskForm
+                                {...props}
+                                tasks={this.state.tasks}
+                                addTask={this.addTask}
+                                sessionId={this.state.sessionId}
+                            />
+                        );
+                }}
         />
       </>
     );
