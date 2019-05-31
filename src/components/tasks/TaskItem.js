@@ -3,7 +3,6 @@ import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
-import "./Task.css"
 
 const Checkbox = props => (
     <input type="checkbox" {...props} />
