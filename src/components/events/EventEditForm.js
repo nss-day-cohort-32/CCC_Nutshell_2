@@ -2,9 +2,14 @@ import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import dbCalls from "../../modules/dbCalls";
+import GetToday from "../../modules/GetToday"
 
 const remoteURL = "http://localhost:5002";
 const eventsURL = `${remoteURL}/events`;
+let today = GetToday.getToday()
+console.log("today", today)
+
+
 
 class EventEditForm extends Component {
   state = {
