@@ -7,7 +7,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom'
-
+import "./NavBar.css"
 
 
 const useStyles = makeStyles(theme => ({
@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
   },
   inputRoot: {
-    color: 'inherit',
+    color: 'primary'
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 7),
@@ -76,25 +76,28 @@ function NavBar() {
             aria-label="Open drawer">
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            C-C-C crew
+            C-C-Crew
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
             </div>
             <ul className="nav nav-pills">
-                    <li className="nav-item">
-                        <Link color="inherit"variant="body1" className="nav-link" to="/articles">Articles</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link color="inherit"variant="body1" className="nav-link" to="/events">Events</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link color="inherit"variant="body1" className="nav-link" to="/tasks">Tasks</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link color="inherit"variant="body1" className="nav-link" to="#">Logout</Link>
-                    </li>
-                </ul>
+              <li className="nav-item">
+                <Link color="primary" variant="body1" className="nav-link" to="/messages">Messages</Link>
+              </li>
+              <li className="nav-item">
+                <Link color="primary" variant="body1" className="nav-link" to="/articles">Articles</Link>
+              </li>
+              <li className="nav-item">
+                <Link color="primary" variant="body1" className="nav-link" to="/events">Events</Link>
+              </li>
+              <li className="nav-item">
+                <Link color="primary" variant="body1" className="nav-link" to="/tasks">Tasks</Link>
+              </li>
+              <li className="nav-item">
+                <Link color="primary" variant="body1" className="nav-link" to="#">Logout</Link>
+              </li>
+            </ul>
           </div>
         </Toolbar>
       </AppBar>
