@@ -12,7 +12,7 @@ export default class MessageItem extends Component {
             <div key={this.props.message.id} className="card">
                 <CardActions>
                     <Card className="card-body">
-                        <CardContent> <h1>{this.props.message.name} </h1></CardContent>
+                        {/* <CardContent> <h1>{this.props.message.name} </h1></CardContent> */}
                         <Typography variant="body2" color="textPrimary" component="p">{this.props.message.content}</Typography>
                         <Button size="small" color="primary"
                             type="button"

@@ -9,27 +9,22 @@ import MessageList from "./Messages/MessageList"
 import dbCalls from "../modules/dbCalls";
 import EventForm from "./events/EventForm";
 import TaskForm from "./tasks/TaskForm";
-import MessageForm from "./Messages/MessageForm"
 import ArticleEditForm from "./articles/ArticleEditForm";
 import EventEditForm from "./events/EventEditForm";
 import TaskEditForm from "./tasks/TaskEditForm";
 import Login from "./Auth/Login"
 import Registeration from "./Auth/Registration"
+import GetToday from "../modules/GetToday"
 
-
-const now = new Date();
-const today =
-    now.getFullYear() +
-    "-" +
-    ((now.getMonth() < 9 ? `0` : ``) + (now.getMonth() + 1)) +
-    "-" +
-    now.getDate();
+let today = GetToday.getToday()
+console.log("today", today)
 
 const remoteURL = "http://localhost:5002";
 const articlesURL = `${remoteURL}/articles`;
 const tasksURL = `${remoteURL}/tasks`;
 const eventsURL = `${remoteURL}/events`;
 const usersURL = `${remoteURL}/users`
+const messagesURL = `${remoteURL}/messages`;
 const getEventsURL = `${remoteURL}/events?_sort=date&_order=asc&date_gte=${today}`;
 
 class ApplicationViews extends Component {
@@ -116,6 +111,16 @@ class ApplicationViews extends Component {
                 })
             );
 
+    addMessage = newMessageOBj =>
+        dbCalls
+            .post(newMessageOBj, messagesURL)
+            .then(() => dbCalls.all(messagesURL))
+            .then(messages =>
+                this.setState({
+                    messages: messages
+                })
+            );
+
     //edit article function goes to here..../
     updateArticle = editedArticleObj => {
         return dbCalls
@@ -133,7 +138,7 @@ class ApplicationViews extends Component {
     updateEvent = editedEventObj => {
         return dbCalls
             .put(eventsURL, editedEventObj)
-            .then(() => dbCalls.all(eventsURL))
+            .then(() => dbCalls.all(`${remoteURL}/events?_sort=date&_order=asc&date_gte=${today}`))
             .then(events => {
                 console.log("this is history", this.props.history);
                 this.props.history.push("/events");
@@ -353,7 +358,7 @@ class ApplicationViews extends Component {
                                 <MessageList
                                     {...props}
                                     messages={this.state.messages}
-                                // patch={this.patchTask}
+                                    addMessage={this.addMessage}
                                 // deleteTask={this.deleteTask}
                                 />
                             );

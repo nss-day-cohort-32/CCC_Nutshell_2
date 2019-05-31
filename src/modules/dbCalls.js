@@ -12,9 +12,9 @@ export default Object.create(null, {
         }
     },
     all: {
-        value: function (URL, sessionId) {
+        value: function (URL) {
             console.log("url", URL)
-            return fetch(`${URL}?userId=${sessionId}`).then(e => e.json())
+            return fetch(`${URL}`).then(e => e.json())
         }
     },
     delete: {
