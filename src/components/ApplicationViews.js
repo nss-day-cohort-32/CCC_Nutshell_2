@@ -281,32 +281,40 @@ class ApplicationViews extends Component {
         />
 
         <Route
-          exact
-          path="/events"
-          render={props => {
-            return (
-              <EventList
-                events={this.state.events}
-                {...props}
-                deleteEvent={this.deleteEvent}
-              />
-            );
-          }}
+                exact
+                path="/events"
+                render={props => {
+                    if (this.isAuthenticated()) {
+                        return (
+                            <EventList
+                                events={this.state.events}
+                                {...props}
+                                deleteEvent={this.deleteEvent}
+                            />
+                        );
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                }}
         />
 
         <Route
-          exact
-          path="/tasks"
-          render={props => {
-            return (
-              <TaskList
-                {...props}
-                tasks={this.state.tasks}
-                patchTask={this.patchTask}
-                deleteTask={this.deleteTask}
-              />
-            );
-          }}
+                exact
+                path="/tasks"
+                render={props => {
+                    if (this.isAuthenticated()) {
+                        return (
+                            <TaskList
+                                {...props}
+                                tasks={this.state.tasks}
+                                patchTask={this.patchTask}
+                                deleteTask={this.deleteTask}
+                            />
+                        );
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                }}
         />
 
         <Route
@@ -322,17 +330,17 @@ class ApplicationViews extends Component {
           }}
         />
         <Route
-          path="/tasks/new"
-          render={props => {
-            return (
-              <TaskForm
-                {...props}
-                tasks={this.state.tasks}
-                    addTask={this.addTask}
-                    sessionId= {this.state.sessionId}
-              />
-            );
-          }}
+                path="/tasks/new"
+                render={props => {
+                        return (
+                            <TaskForm
+                                {...props}
+                                tasks={this.state.tasks}
+                                addTask={this.addTask}
+                                sessionId={this.state.sessionId}
+                            />
+                        );
+                }}
         />
       </>
     );
