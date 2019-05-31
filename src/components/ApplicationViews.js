@@ -90,6 +90,15 @@ class ApplicationViews extends Component {
             .then(() => this.setState(newState));
     };
 
+    deleteMessage = id => {
+        const newState = {};
+        dbCalls
+            .delete(id, messagesURL)
+            .then(() => dbCalls.all(messagesURL))
+            .then(messages => (newState.messages = messages))
+            .then(() => this.setState(newState));
+    };
+
     //   add event Form function goes heere.... //
     addEvent = newEventObj =>
         dbCalls
@@ -359,6 +368,7 @@ class ApplicationViews extends Component {
                                     {...props}
                                     messages={this.state.messages}
                                     addMessage={this.addMessage}
+                                    deleteMessage={this.deleteMessage}
                                 // deleteTask={this.deleteTask}
                                 />
                             );

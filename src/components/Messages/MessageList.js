@@ -10,38 +10,58 @@ class MessageList extends Component {
 
     state = {
         // "userId": 1,
-        contentName: "",
-        timestamp: ""
+        content: "",
+        timestamp: this.getTimeStamp()
     };
 
     // Update state whenever an input field is edited
     handleFieldChange = (event) => {
         const stateToChange = {};
         stateToChange[event.target.id] = event.target.value;
-        console.log(stateToChange)
         this.setState(stateToChange);
     };
 
+
+    resetInput() {
+        console.log("working")
+        this.setState({
+            content: " "
+        })
+        return
+    }
     /*
           Local method for validation, creating article object, and
           invoking the function reference passed from parent component
-       */
+          */
     constructNewMessage = e => {
         e.preventDefault();
 
         const message = {
-            content: this.state.contentName,
-            // timestamp: this.state.timestamp
+            content: this.state.content,
+            timestamp: this.state.timestamp
         };
 
         // Create the message and redirect user to message list
         this.props
             .addMessage(message)
-            .then(() => this.props.history.push("/messages"));
+            .then(this.resetInput())
+    };
+
+    getTimeStamp() {
+        let now = new Date();
+        return ((now.getMonth() + 1) + "/" +
+            (now.getDate()) + "/" +
+            now.getFullYear() + " " +
+            now.getHours() + ":" +
+            ((now.getMinutes() < 10)
+                ? ("0" + now.getMinutes())
+                : (now.getMinutes())) + ":" +
+            ((now.getSeconds() < 10)
+                ? ("0" + now.getSeconds())
+                : (now.getSeconds())))
     }
 
     render() {
-        console.log("props", this.props)
         return (
             <React.Fragment>
                 <Card className="messages">
@@ -63,7 +83,7 @@ class MessageList extends Component {
                             required
                             className="form-control"
                             onChange={this.handleFieldChange}
-                            id="contentName"
+                            id="content"
                             placeholder="Type a message...."
                         />
                     </div>
@@ -75,7 +95,7 @@ class MessageList extends Component {
                         Send Message
                     </Button>
                 </form>
-            </React.Fragment>
+            </React.Fragment >
         )
     }
 }
