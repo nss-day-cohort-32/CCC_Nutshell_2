@@ -8,10 +8,8 @@ const tasksURL = `${remoteURL}/tasks`;
 
 class TaskEditForm extends Component {
   state = {
-    taskTitle: "",
-    taskDate: "",
     task: "",
-    date: "",
+    date: ""
   };
 
   handleFieldChange = evt => {
@@ -25,15 +23,15 @@ class TaskEditForm extends Component {
     evt.preventDefault();
     const editTask = {
       id: this.props.match.params.tasksId,
-      task: this.state.taskTitle,
-      date: this.state.taskDate,
-      completed: this.state.taskCompleted
+      task: this.state.task,
+      date: this.state.date,
     };
     console.log("edit events", editTask);
     this.props.updateTask(editTask);
   };
   componentDidMount() {
     dbCalls.get(tasksURL, this.props.match.params.tasksId).then(task => {
+      console.log(task)
       this.setState({
         task: task.task,
         date: task.date,
@@ -42,46 +40,46 @@ class TaskEditForm extends Component {
     });
   }
 
-    render() {
-        return (
-            <React.Fragment>
-              <form className="TaskForm">
-                <div className="form-group">
-                  <label htmlFor="taskName">Task Name:</label>
-                  <TextField
-                    type="text"
-                    required
-                    className="form-control"
-                    onChange={this.handleFieldChange}
-                    id="taskTitle"
-                    placeholder={this.state.task}
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="taskDate">Date</label>
-                  <TextField
-                    type="date"
-                    required
-                    className="form-control"
-                    onChange={this.handleFieldChange}
-                    id="taskDate"
-                    placeholder={this.state.date}
-                  />
-                </div>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  size="large"
-                  type="submit"
-                  onClick={this.updateExisitingTask}
-                  className="btn btn-primary"
-                >
-                  Update
+  render() {
+    return (
+      <React.Fragment>
+        <form className="TaskForm">
+          <div className="form-group">
+            <label htmlFor="taskName">Task Name:</label>
+            <TextField
+              type="text"
+              required
+              className="form-control"
+              onChange={this.handleFieldChange}
+              id="task"
+              value={this.state.task}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="taskDate">Date</label>
+            <TextField
+              type="date"
+              required
+              className="form-control"
+              onChange={this.handleFieldChange}
+              id="date"
+              value={this.state.date}
+            />
+          </div>
+          <Button
+            variant="outlined"
+            color="primary"
+            size="large"
+            type="submit"
+            onClick={this.updateExisitingTask}
+            className="btn btn-primary"
+          >
+            Update
                 </Button>
-              </form>
-            </React.Fragment>
-          );
-    }
+        </form>
+      </React.Fragment>
+    );
+  }
 }
 
 export default TaskEditForm;
