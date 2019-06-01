@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
 
-class Logout extends Component {
-    render() {
-        return (
+// class Logout extends Component {
+//     render() {
+//         return (
             
-        );
-    }
-}
+//         );
+//     }
+// }
 
-export default Logout;
+// export default Logout;

@@ -95,7 +95,7 @@ function NavBar() {
                 <Link color="primary" variant="body1" className="nav-link" to="/tasks">Tasks</Link>
               </li>
               <li className="nav-item">
-                <Link color="primary" variant="body1" className="nav-link" to="#">Logout</Link>
+                <Link color="primary" variant="body1" className="nav-link" to="login">Logout</Link>
               </li>
             </ul>
           </div>

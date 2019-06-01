@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
@@ -11,7 +10,7 @@ export default class ArticleItem extends Component {
     render() {
         return (
             <div key={this.props.article.id} className="card">
-                <CardActions>
+                
                     <Card className="card-body">
                         <CardContent> <h1>{this.props.article.name} </h1></CardContent>
                         <Typography variant="body2" color="textPrimary" component="p">{this.props.article.summary}</Typography>
@@ -28,7 +27,7 @@ export default class ArticleItem extends Component {
                             onClick={() => this.props.deleteArticle(this.props.article.id)}
                             className="card-link">Delete</Button>
                     </Card>
-                </CardActions>
+              
             </div>
         )
     }

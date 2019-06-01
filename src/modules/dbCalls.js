@@ -17,6 +17,12 @@ export default Object.create(null, {
             return fetch(`${URL}`).then(e => e.json())
         }
     },
+    specific: {
+        value: function (category) {
+            let sessionId = sessionStorage.getItem("userId")
+            return fetch(`${remoteURL}/${category}?userId=${sessionId}`).then(e => e.json())
+        }
+    },
     delete: {
         value: function (id, URL) {
             return fetch(`${URL}/${id}`, {
@@ -61,8 +67,8 @@ export default Object.create(null, {
         }
     },
     getUsers: {
-        value: function(id) {
-        return fetch(`http://localhost:5002/users/${id}`).then(e => e.json());
+        value: function(sessionId) {
+        return fetch(`http://localhost:5002/users?userId=${sessionId}`).then(e => e.json());
     }},
     getAllUsers: {
         value: function () {

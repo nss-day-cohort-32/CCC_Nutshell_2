@@ -1,6 +1,8 @@
 import React, { Component } from "react"
+import "./Login.css"
 
 import { Link } from "react-router-dom"
+import ccc from "../Auth/ccc.png"
 
 
 
@@ -79,8 +81,9 @@ export default class Login extends Component {
         return (
              //The onSubmit handler of the form is used to execute the class method
             <section className="login">
-                <form className="registerContainer" onSubmit={this.handleLogin}>   
-                    <h2>Please sign in</h2>
+                <form className="registerContainer" onSubmit={this.handleLogin}>
+                <img src={ccc} className="acornIcon" alt="acornIcon" height="100" width="100"></img>
+                    <h2 className="header">Please sign in</h2>
                     <label htmlFor="inputUsername">
                     </label> <br></br>
                     <input onChange={this.handleFieldChange} type="text"
@@ -96,7 +99,7 @@ export default class Login extends Component {
                         placeholder="Email"
                         required />
                         <br></br>
-                    <button type="submit" className="btn btn-primary signIn" >Sign in </button>
+                    <button onClick={this.props.getUserData} type="submit" className="btn btn-primary signIn" >Sign in </button>
 
                     <p className="signUp">Don't have an account? <Link className="nav-link signUpLink" to="/register">Sign Up</Link></p>
                 </form>
