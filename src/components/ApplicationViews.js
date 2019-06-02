@@ -37,162 +37,177 @@ class ApplicationViews extends Component {
       sessionId: sessionStorage.getItem("userId")
   };
 
-  componentDidMount() {
-    const newState = {};
-
+    
+    getUserData() {
+        console.log("didmount fired up")
+        const newState = {};
+    let sessionId = sessionStorage.getItem("userId")
     dbCalls
-      .all(articlesURL)
+      .all(`${remoteURL}/articles?userId=${sessionId}`)
       .then(articles => (newState.articles = articles))
       .then(() => fetch(getEventsURL).then(r => r.json()))
       .then(events => (newState.events = events))
-      .then(() => fetch("http://localhost:5002/tasks").then(r => r.json()))
+      .then(() => fetch(`http://localhost:5002/tasks?userId=${sessionId}`).then(r => r.json()))
       .then(tasks => (newState.tasks = tasks))
 
-      .then(() => fetch("http://localhost:5002/messages").then(r => r.json()))
+      .then(() => fetch(`http://localhost:5002/messages?userId=${sessionId}`).then(r => r.json()))
       .then(messages => (newState.messages = messages))
 
-      .then(() => fetch("http://localhost:5002/friends").then(r => r.json()))
+      .then(() => fetch(`http://localhost:5002/friends?userId=${sessionId}`).then(r => r.json()))
       .then(friends => (newState.friends = friends))
-      .then(() => fetch("http://localhost:5002/users").then(r => r.json()))
+      .then(() => fetch(`http://localhost:5002/users?userId=${sessionId}`).then(r => r.json()))
       .then(users => (newState.users = users))
-      .then(() => this.setState(newState));
-  }
-
-  /* delete article function goes here.... */
-  deleteArticle = id => {
-    const newState = {};
-    dbCalls
-      .delete(id, articlesURL)
-      .then(() => dbCalls.all(articlesURL))
-      .then(articles => (newState.articles = articles))
-      .then(() => this.setState(newState));
-  };
-
-  /* delete task function goes here.... */
-
-  deleteTask = id => {
-    const newState = {};
-    dbCalls
-      .delete(id, tasksURL)
-      .then(() => dbCalls.all(tasksURL))
-      .then(tasks => (newState.tasks = tasks))
-      .then(() => this.setState(newState));
-  };
-
-  deleteEvent = id => {
-    const newState = {};
-    dbCalls
-      .delete(id, eventsURL)
-      .then(() => dbCalls.all(getEventsURL))
-      .then(events => (newState.events = events))
-      .then(() => this.setState(newState));
-  };
-
-  //   add event Form function goes heere.... //
-  addEvent = newEventObj =>
-    dbCalls
-      .post(newEventObj, eventsURL)
-      .then(() => dbCalls.all(getEventsURL))
-      .then(events =>
-        this.setState({
-          events: events
-        })
-      );
-
-  addArticle = newArticleObj =>
-    dbCalls
-      .post(newArticleObj, articlesURL)
-      .then(() => dbCalls.all(articlesURL))
-      .then(articles =>
-        this.setState({
-          articles: articles
-        })
-      );
-
-  //edit article function goes to here..../
-  updateArticle = editedArticleObj => {
-    return dbCalls
-      .put(articlesURL, editedArticleObj)
-      .then(() => dbCalls.all(articlesURL))
-      .then(articles => {
-        console.log("this is history", this.props.history);
-        this.props.history.push("/articles");
-        this.setState({
-          articles: articles
-        });
-      });
-  };
-
-  updateEvent = editedEventObj => {
-    return dbCalls
-      .put(eventsURL, editedEventObj)
-      .then(() => dbCalls.all(`${remoteURL}/events?_sort=date&_order=asc&date_gte=${today}`))
-      .then(events => {
-        console.log("this is history", this.props.history);
-        this.props.history.push("/events");
-        this.setState({
-          events: events
-        });
-      });
-  };
-
-  updateTask = editedTaskObj => {
-    return dbCalls
-      .put(tasksURL, editedTaskObj)
-      .then(() => dbCalls.all(tasksURL))
-      .then(tasks => {
-        console.log("this is history", this.props.history);
-        this.props.history.push("/tasks");
-        this.setState({
-          tasks: tasks
-        });
-      });
-  };
-
-  addTask = newTaskObj =>
-    dbCalls
-      .post(newTaskObj, tasksURL)
-      .then(() => dbCalls.all(tasksURL))
-      .then(tasks =>
-        this.setState({
-          tasks: tasks
-        })
-      );
-
-  patchTask = editObj => {
-    console.log(editObj);
-    dbCalls
-      .patch(editObj, tasksURL)
-      .then(() => dbCalls.all(tasksURL))
-      .then(tasks =>
-        this.setState({
-          tasks: tasks
-        })
-      );
-  };
-
-    // update users
-    updateComponent = () => {
-
-        dbCalls.getUsers().then(allUsers => {
-            this.setState({ users: allUsers });
-            console.log(allUsers)
-        })
-        dbCalls.getUsers(this.state.sessionId)
-            .then(allIdea => {
-                this.setState({     //the method setstate stores the result in the local component state by using React 
-                    idea: allIdea
-                })
-            })
+        .then(() => this.setState(newState))
     }
-    // add users here
-    addUser = (user) => dbCalls.post(user, usersURL)
-    .then(() => dbCalls.all(usersURL))
-    .then(Allusers => this.setState({
-        users: Allusers             //added this three line of codes today to set the new user.
-    }))
-
-  render() {
+    
+    /* delete article function goes here.... */
+    deleteArticle = id => {
+        const newState = {};
+        dbCalls
+        .delete(id, articlesURL)
+        .then(() => dbCalls.all(articlesURL))
+        .then(articles => (newState.articles = articles))
+        .then(() => this.setState(newState));
+    };
+    
+    /* delete task function goes here.... */
+    
+    deleteTask = id => {
+        const newState = {};
+        dbCalls
+        .delete(id, tasksURL)
+        .then(() => dbCalls.all(tasksURL))
+        .then(tasks => (newState.tasks = tasks))
+        .then(() => this.setState(newState));
+    };
+    
+    deleteEvent = id => {
+        const newState = {};
+        dbCalls
+        .delete(id, eventsURL)
+        .then(() => dbCalls.all(getEventsURL))
+        .then(events => (newState.events = events))
+        .then(() => this.setState(newState));
+    };
+    
+    //   add event Form function goes heere.... //
+    addEvent = newEventObj =>
+    dbCalls
+    .post(newEventObj, eventsURL)
+    .then(() => dbCalls.all(getEventsURL))
+    .then(events =>
+        this.setState({
+            events: events
+        })
+        );
+        
+        addArticle = newArticleObj =>
+        dbCalls
+        .post(newArticleObj, articlesURL)
+        .then(() => dbCalls.specific("articles"))
+        .then(articles =>
+            this.setState({
+                articles: articles
+            })
+            );
+            
+            //edit article function goes to here..../
+            updateArticle = editedArticleObj => {
+                return dbCalls
+                .put(articlesURL, editedArticleObj)
+                .then(() => dbCalls.all(articlesURL))
+                .then(articles => {
+                    console.log("this is history", this.props.history);
+                    this.props.history.push("/articles");
+                    this.setState({
+                        articles: articles
+                    });
+                });
+            };
+            
+            updateEvent = editedEventObj => {
+                return dbCalls
+                .put(eventsURL, editedEventObj)
+                .then(() => dbCalls.all(`${remoteURL}/events?_sort=date&_order=asc&date_gte=${today}`))
+                .then(events => {
+                    console.log("this is history", this.props.history);
+                    this.props.history.push("/events");
+                    this.setState({
+                        events: events
+                    });
+                });
+            };
+            
+            updateTask = editedTaskObj => {
+                return dbCalls
+                .put(tasksURL, editedTaskObj)
+                .then(() => dbCalls.all(tasksURL))
+                .then(tasks => {
+                    console.log("this is history", this.props.history);
+                    this.props.history.push("/tasks");
+                    this.setState({
+                        tasks: tasks
+                    });
+                });
+            };
+            
+            addTask = newTaskObj =>
+            dbCalls
+            .post(newTaskObj, tasksURL)
+            .then(() => dbCalls.specific("tasks"))
+            .then(tasks =>
+                this.setState({
+                    tasks: tasks
+                })
+                );
+                
+                patchTask = editObj => {
+                    console.log(editObj);
+                    dbCalls
+                    .patch(editObj, tasksURL)
+                    .then(() => dbCalls.all(tasksURL))
+                    .then(tasks =>
+                        this.setState({
+                            tasks: tasks
+                        })
+                        );
+                    };
+                    
+                    // update users
+                    updateComponent = () => {
+                        
+                        dbCalls.getUsers().then(allUsers => {
+                            this.setState({ users: allUsers });
+                            console.log(allUsers)
+                        })
+                    }
+                    // add users here
+                    addUser = (user) => dbCalls.post(user, usersURL)
+                    .then(() => dbCalls.all(usersURL))
+                    .then(Allusers => this.setState({
+                        users: Allusers             //added this three line of codes today to set the new user.
+                    }))
+                            componentDidMount() {
+                                  console.log("didmount fired up")
+                                  const newState = {};
+                              let sessionId = sessionStorage.getItem("userId")
+                              dbCalls
+                                .all(`${remoteURL}/articles?userId=${sessionId}`)
+                                .then(articles => (newState.articles = articles))
+                                .then(() => fetch(getEventsURL).then(r => r.json()))
+                                .then(events => (newState.events = events))
+                                .then(() => fetch(`http://localhost:5002/tasks?userId=${sessionId}`).then(r => r.json()))
+                                .then(tasks => (newState.tasks = tasks))
+                                .then(() => fetch(`http://localhost:5002/messages?userId=${sessionId}`).then(r => r.json()))
+                                .then(messages => (newState.messages = messages))
+                                .then(() => fetch(`http://localhost:5002/friends?userId=${sessionId}`).then(r => r.json()))
+                                .then(friends => (newState.friends = friends))
+                                .then(() => fetch(`http://localhost:5002/users?userId=${sessionId}`).then(r => r.json()))
+                                .then(users => (newState.users = users))
+                                  .then(() => this.setState(newState))
+                            }
+                    render() {
+                        console.log("rendered")
     return (
         <>
               <Route path="/login" render={(props) => {

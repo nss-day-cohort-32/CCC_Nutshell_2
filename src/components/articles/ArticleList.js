@@ -8,10 +8,10 @@ import "./Article.css"
 
 class ArticleList extends Component {
     render() {
-        console.log("props", this.props)
         return (
             <React.Fragment>
-                <Card className="articleButton">
+                {/* <Card className="articleButton"> */}
+                <Card className="articles">
                     <Button  variant="outlined" color="primary" size="large" type="button"
                         className="btn btn-success"
                         onClick={() => {
@@ -19,12 +19,11 @@ class ArticleList extends Component {
                         }}>
                         Add New Article
                     </Button>
-                </Card>
-                <Card className="articles">
+                {/* </Card> */}
                 {
                     this.props.articles.map(article => {
                         return <ArticleItem key={article.id} article={article}
-                            deleteArticle={this.props.deleteArticle} {...this.props} 
+                            deleteArticle={this.props.deleteArticle} {...this.props}
                             updateArticle={this.props.updateArticle} {...this.props}
                             />
                     })
