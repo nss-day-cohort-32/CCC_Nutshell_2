@@ -1,0 +1,118 @@
+.registerContainer{
+    color:rgb(75, 89, 167);
+}
+
+@media (max-width: 500px) {
+    .login, .register {
+        text-align: center;
+    }
+
+    .login input, .register input {
+        padding: 10px 45px;
+        background: rgb(75, 89, 167);
+        margin: 3% 2% 0;
+        border: none;
+        color: #ffffff;
+        text-transform: uppercase;
+        font-size: 15px;
+        letter-spacing: 1px;
+    }
+
+    .login h2{
+        padding-top:20px;
+    }
+
+    .register h2{
+        padding-top:20px;
+    }
+
+    .signIn{
+        margin-top:20px;
+        color:grey;
+    }
+    .register{
+        margin-top:20px;
+        color:grey;
+    }
+
+    .signUp{
+        padding-top:20px;
+    }
+
+    .backButton{
+        margin-top:20px;
+        margin-right:300px;
+    }
+
+    .acornIcon{
+        margin-top:80px;
+    }
+
+    .registerAcorn{
+        margin-top:30px;
+    }
+}
+
+@media (min-width: 500px) {
+    .login, .register {
+        text-align: center;
+    }
+
+    .login input, .register input {
+        border: 1px solid #D5D5D5;
+        padding: 5px;
+        border-radius: 6px;
+        text-align: center;
+        width: 20%;
+        margin-left: 20px;
+    }
+
+    .login h2 {
+        padding-top:30px;
+        margin-left: 10px;
+    }
+
+    .register h2{
+        padding-top: 30px;
+    }
+
+    .signIn{
+        margin-top:20px;
+        margin-left: 20px;
+    }
+
+    .signUp{
+        padding-top:20px;
+        margin-left: 20px;
+        color: rgb(75, 89, 167)
+    }
+
+    .signUpLink{
+        text-align: center;
+    }
+
+    .backButton{
+        display: none;
+    }
+
+
+    .acornIcon{
+        margin-top:80px;
+        margin-left: 30px;
+    }
+
+    .registerAcorn{
+        margin-top:80px;
+        margin-left: 30px;
+    }
+    .registerContainer{
+        background-color: white
+    }
+    h2{
+        color: rgb(75, 89, 167)
+    }
+    /* .header{
+        font-family: Luminari, fantasy
+    } */
+
+}

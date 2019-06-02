@@ -3,3 +3,10 @@
     border-bottom: 1px solid red;
     color: red;
 }
+.card{
+    margin: 40px;
+    width: 450px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center
+}

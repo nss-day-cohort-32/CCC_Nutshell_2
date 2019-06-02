@@ -23,10 +23,12 @@ export default class TaskForm extends Component {
         */
   constructNewTask = e => {
     e.preventDefault();
+    let userId = sessionStorage.getItem('userId')
     const taskObj = {
       task: this.state.taskName,
       date: this.state.taskDate,
-      completed: false
+      completed: false,
+      userId: parseInt(userId)
     };
 
     // Create the article and redirect user to article list

@@ -27,11 +27,12 @@ export default class ArticleForm extends Component {
      */
   constructNewArticle = e => {
     e.preventDefault();
-
+    let userId = sessionStorage.getItem('userId')
       const article = {
         name: this.state.articleName,
         summary: this.state.articleSummary,
-        URL: this.state.articleURL
+        URL: this.state.articleURL,
+        userId: parseInt(userId)
       };
 
       // Create the article and redirect user to article list
