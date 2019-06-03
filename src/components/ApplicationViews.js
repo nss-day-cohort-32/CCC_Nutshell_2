@@ -201,10 +201,12 @@ class ApplicationViews extends Component {
         dbCalls
             .patch(editObj, messagesURL)
             .then(() => dbCalls.all(messagesURL))
-            .then(messages =>
+            .then(messages => {
+                this.props.history.push("/messages")
                 this.setState({
                     messages: messages
                 })
+            }
             );
     };
 
@@ -333,6 +335,7 @@ class ApplicationViews extends Component {
                             return (
                                 <EventList
                                     events={this.state.events}
+
                                     {...props}
                                     deleteEvent={this.deleteEvent}
                                 />

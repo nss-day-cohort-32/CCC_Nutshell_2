@@ -42,6 +42,20 @@ export default class MessageEditForm extends Component {
         });
     }
 
+    getTimeStamp() {
+        let now = new Date();
+        return ((now.getMonth() + 1) + "/" +
+            (now.getDate()) + "/" +
+            now.getFullYear() + " " +
+            now.getHours() + ":" +
+            ((now.getMinutes() < 10)
+                ? ("0" + now.getMinutes())
+                : (now.getMinutes())) + ":" +
+            ((now.getSeconds() < 10)
+                ? ("0" + now.getSeconds())
+                : (now.getSeconds())))
+    }
+
     render() {
         return (
             <React.Fragment>

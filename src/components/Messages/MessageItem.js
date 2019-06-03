@@ -19,7 +19,7 @@ export default class MessageItem extends Component {
                             type="button"
                             className="btn btn-success btn--edit"
                             onClick={() => {
-                                this.props.history.push(`/message/${this.props.message.id}/edit`);
+                                this.props.history.push(`/messages/${this.props.message.id}/edit`);
                             }}>
                             Edit
                     </Button>
