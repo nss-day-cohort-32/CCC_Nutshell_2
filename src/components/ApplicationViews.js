@@ -12,6 +12,7 @@ import TaskForm from "./tasks/TaskForm";
 import ArticleEditForm from "./articles/ArticleEditForm";
 import EventEditForm from "./events/EventEditForm";
 import TaskEditForm from "./tasks/TaskEditForm";
+import MessageEditForm from "./Messages/MessageEditForm"
 import Login from "./Auth/Login"
 import Registeration from "./Auth/Registration"
 import GetToday from "../modules/GetToday"
@@ -193,6 +194,18 @@ class ApplicationViews extends Component {
             .then(() => dbCalls.all(messagesURL))
             .then(messages => (newState.messages = messages))
             .then(() => this.setState(newState));
+    };
+
+    patchMessage = editObj => {
+        console.log(editObj);
+        dbCalls
+            .patch(editObj, messagesURL)
+            .then(() => dbCalls.all(messagesURL))
+            .then(messages =>
+                this.setState({
+                    messages: messages
+                })
+            );
     };
 
     // update users
@@ -391,6 +404,18 @@ class ApplicationViews extends Component {
                         } else {
                             return <Redirect to="/login" />
                         }
+                    }}
+                />
+                <Route
+                    path="/messages/:messageId(\d+)/edit"
+                    render={props => {
+                        return (
+                            <MessageEditForm
+                                {...props}
+                                messages={this.state.messages}
+                                patchMessage={this.patchMessage}
+                            />
+                        );
                     }}
                 />
             </>

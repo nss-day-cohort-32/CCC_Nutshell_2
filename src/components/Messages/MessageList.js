@@ -69,7 +69,7 @@ class MessageList extends Component {
                         this.props.messages.map(message => {
                             return <MessageItem key={message.id} message={message}
                                 deleteMessage={this.props.deleteMessage} {...this.props}
-                                updateMessage={this.props.updateMessage} {...this.props}
+                                patchMessage={this.props.patchMessage} {...this.props}
                                 addMessage={this.props.addMessage}  {...this.props}
                             />
                         })
